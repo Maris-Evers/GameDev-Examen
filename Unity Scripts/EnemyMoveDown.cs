@@ -4,6 +4,7 @@ public class EnemyMoveDown : MonoBehaviour
 {
     public float speed;
     public float yDestroy = -6f;
+    private float rotationSpeed;
 
     private Rigidbody2D rb;
 
@@ -12,6 +13,9 @@ public class EnemyMoveDown : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         speed = Random.Range(2, 5);
+        rotationSpeed = Random.Range(-100, 100);
+
+        rb.angularVelocity = rotationSpeed;
     }
 
     void FixedUpdate()
