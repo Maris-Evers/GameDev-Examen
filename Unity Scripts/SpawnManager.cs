@@ -4,6 +4,7 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] obstacles;
     public GameObject fuel;
+    public GameObject shield;
 
     private float spawnRangeX = 8f;
     private float spawnPosY = 7f;
@@ -11,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     private float obstacleDelay = 1.5f;
     private float fuelDelay = 9f;
     private float startDelay = 2f;
+    private float shieldDelay = 15f;
 
 
 
@@ -21,6 +23,7 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnRandomObstacle", startDelay + 0.7f, obstacleDelay);
 
         InvokeRepeating("SpawnFuel", startDelay + 5f, fuelDelay);
+        InvokeRepeating("SpawnShield", startDelay + 10f, shieldDelay);
     }
 
     void SpawnRandomObstacle()
@@ -37,5 +40,12 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), spawnPosY, 0);
 
         Instantiate(fuel, spawnPos, transform.rotation);
+    }
+
+    void SpawnShield()
+    {
+        Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), spawnPosY, 0);
+
+        Instantiate(shield, spawnPos, transform.rotation);
     }
 }

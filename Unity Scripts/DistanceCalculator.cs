@@ -5,17 +5,20 @@ public class DistanceCalculator : MonoBehaviour
 {
     public float time;
     private float distance;
+    private float totalDistance;
     public TextMeshProUGUI distanceText;
     public GameManagerScript gameManager;
+    public float DistanceIncreaseRate = 5f;
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        distance = time * 5f;
-        distanceText.text = "Distance: " + Mathf.Floor(distance) + " LY";
+        distance = Time.deltaTime * DistanceIncreaseRate;
+        totalDistance += distance;
+        
+        distanceText.text = "Distance: " + Mathf.Floor(totalDistance) + " LY";
 
-        if (distance >= 500f)
+        if (totalDistance >= 500f)
         {
             gameManager.GameWin();
         }

@@ -4,6 +4,7 @@ public class PlayerCollisions : MonoBehaviour
 {
     public bool isGameOver;
     public GameManagerScript gameManager;
+    public GameObject shield;
 
     private void Update()
     {
@@ -15,7 +16,7 @@ public class PlayerCollisions : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle") && !isGameOver)
+        if (other.gameObject.CompareTag("Obstacle") && !shield.activeInHierarchy)
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
@@ -30,6 +31,19 @@ public class PlayerCollisions : MonoBehaviour
 
             PlayerFuel playerFuel = GetComponent<PlayerFuel>();
             playerFuel.currentFuel += 25f;
+            playerFuel.ResetValues();
         }
+
+        if (other.gameObject.CompareTag("Shieldpowerup"))
+        {
+            Destroy(other.gameObject);
+            shield.SetActive(true);
+            Invoke("DisableShield", 5f);
+        }
+    }
+
+    private void DisableShield()
+    {
+        shield.SetActive(false);
     }
 }

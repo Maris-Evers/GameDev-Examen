@@ -10,8 +10,14 @@ public class PlayerFuel : MonoBehaviour
     public Slider fuelSlider;
     public TextMeshProUGUI fuelText;
 
-    public GameManagerScript gameManager;
     bool isGameOver;
+
+    private float countdown = 20f;
+    private float timer;
+    private float disIncRate;
+    private DistanceCalculator distanceCalculator;
+    private Player playerController;
+    private float playerSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +27,15 @@ public class PlayerFuel : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         PlayerCollisions playerCollisions = player.GetComponent<PlayerCollisions>();
         isGameOver = playerCollisions.isGameOver;
+
+        timer = countdown;
+
+        GameObject distanceCalc = GameObject.FindWithTag("Distance");
+        distanceCalculator = distanceCalc.GetComponent<DistanceCalculator>();
+        disIncRate = distanceCalculator.DistanceIncreaseRate;
+        
+        playerController = player.GetComponent<Player>();
+        playerSpeed = playerController.speed;
     }
 
     // Update is called once per frame
@@ -39,6 +54,23 @@ public class PlayerFuel : MonoBehaviour
         {
             currentFuel = 0;
             fuelText.text = "Fuel left: " + Mathf.Floor(currentFuel);
+
+            timer -= Time.deltaTime;
+            float speedFactor = timer / countdown;
+
+
+            if (timer > 0f)
+            {
+                distanceCalculator.DistanceIncreaseRate = disIncRate * speedFactor;
+                playerController.speed = playerSpeed * speedFactor;
+            }
         }
+    }
+
+    public void ResetValues()
+    {
+        distanceCalculator.DistanceIncreaseRate = disIncRate;
+        playerController.speed = playerSpeed;
+        timer = countdown;
     }
 }
