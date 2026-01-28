@@ -9,6 +9,9 @@ public class DistanceCalculator : MonoBehaviour
     public TextMeshProUGUI distanceText;
     public GameManagerScript gameManager;
     public float DistanceIncreaseRate = 5f;
+    public GameObject finishLine;
+    private bool finishLineActive = false;
+    public GameObject spawnManager;
 
     // Update is called once per frame
     void Update()
@@ -18,9 +21,16 @@ public class DistanceCalculator : MonoBehaviour
         
         distanceText.text = "Distance: " + Mathf.Floor(totalDistance) + " LY";
 
-        if (totalDistance >= 500f)
+        if (totalDistance >= 490f && !finishLineActive)
         {
-            gameManager.GameWin();
+            GameObject.Find("SpawnManager").GetComponent<SpawnManager>().OnResetOrWin();
+            SpawnFinish();
+            finishLineActive = true;
         }
+    }
+
+    private void SpawnFinish()
+    {
+        Instantiate(finishLine, new Vector3(0, 10, 0), transform.rotation);
     }
 }

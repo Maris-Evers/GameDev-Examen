@@ -1,10 +1,12 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerCollisions : MonoBehaviour
 {
     public bool isGameOver;
     public GameManagerScript gameManager;
     public GameObject shield;
+    public TextMeshProUGUI deathFlavorText;
 
     private void Update()
     {
@@ -18,6 +20,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle") && !shield.activeInHierarchy)
         {
+            deathFlavorText.text = "You crashed into a " + other.gameObject.name + "!";
             Destroy(other.gameObject);
             Destroy(this.gameObject);
             isGameOver = true;
@@ -39,6 +42,11 @@ public class PlayerCollisions : MonoBehaviour
             Destroy(other.gameObject);
             shield.SetActive(true);
             Invoke("DisableShield", 5f);
+        }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            gameManager.GameWin();
         }
     }
 

@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     private float spawnRangeX = 8f;
     private float spawnPosY = 7f;
 
-    private float obstacleDelay = 1.5f;
+    private float obstacleDelay = 0.8f;
     private float fuelDelay = 9f;
     private float startDelay = 2f;
     private float shieldDelay = 15f;
@@ -20,8 +20,6 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating("SpawnRandomObstacle", startDelay, obstacleDelay);
-        InvokeRepeating("SpawnRandomObstacle", startDelay + 0.7f, obstacleDelay);
-
         InvokeRepeating("SpawnFuel", startDelay + 5f, fuelDelay);
         InvokeRepeating("SpawnShield", startDelay + 10f, shieldDelay);
     }
@@ -29,10 +27,10 @@ public class SpawnManager : MonoBehaviour
     void SpawnRandomObstacle()
     {
         int randomIndex = Random.Range(0, obstacles.Length);
-
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), spawnPosY, 0);
 
-        Instantiate(obstacles[randomIndex], spawnPos, transform.rotation);
+        GameObject newTarget = Instantiate(obstacles[randomIndex], spawnPos, transform.rotation);
+        newTarget.name = newTarget.name.Replace("(Clone)","").Trim();
     }
 
     void SpawnFuel()
@@ -47,5 +45,12 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), spawnPosY, 0);
 
         Instantiate(shield, spawnPos, transform.rotation);
+    }
+
+    public void OnResetOrWin()
+    {
+        CancelInvoke("SpawnRandomObstacle");
+        CancelInvoke("SpawnFuel");
+        CancelInvoke("SpawnShield");
     }
 }

@@ -3,7 +3,9 @@ using UnityEngine;
 public class EnemyMoveDown : MonoBehaviour
 {
     public float speed;
-    public float yDestroy = -6f;
+    public float yDestroyLow = -6f;
+    private float yDestroyHigh = 15f;
+    private float xDestroy = 13f;
     private float rotationSpeed;
 
     private Rigidbody2D rb;
@@ -21,7 +23,7 @@ public class EnemyMoveDown : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < yDestroy)
+        if (transform.position.y < yDestroyLow || transform.position.y > yDestroyHigh || transform.position.x > xDestroy || transform.position.x < -xDestroy)
         {
             Destroy(gameObject);
         }

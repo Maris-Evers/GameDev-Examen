@@ -53,21 +53,29 @@ public class GameManagerScript : MonoBehaviour
             GameObject.Find("DistanceText").GetComponent<DistanceCalculator>().enabled = false;
             gameWinUI.SetActive(true);
             isGameOver = true;
+            OnResetOrWin();
         }
     }
 
     public void Restart()
     {
+        OnResetOrWin();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void MainMenu()
     {
+        OnResetOrWin();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    void OnResetOrWin()
+    {
+        GameObject.Find("SpawnManager").GetComponent<SpawnManager>().OnResetOrWin();
     }
 }
