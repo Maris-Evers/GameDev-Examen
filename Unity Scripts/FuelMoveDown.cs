@@ -12,6 +12,7 @@ public class FuelMoveDown : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // since fuel doesnt factor bouncing from collisions to not make the game too hard, the movement is set in fixedupdate
     void FixedUpdate()
     {
         rb.linearVelocity = Vector2.down * speed;

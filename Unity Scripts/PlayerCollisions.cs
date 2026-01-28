@@ -11,14 +11,6 @@ public class PlayerCollisions : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip explosionSound;
 
-    private void Update()
-    {
-        if (isGameOver)
-        {
-            Debug.Log("game over");
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Obstacle") && !shield.activeInHierarchy)
@@ -34,6 +26,7 @@ public class PlayerCollisions : MonoBehaviour
             gameManager.GameOver();
         }
 
+        // adds fuel on pickup and resets momentum to standard values
         if (other.gameObject.CompareTag("Fuel"))
         {
             Destroy(other.gameObject);
@@ -43,6 +36,7 @@ public class PlayerCollisions : MonoBehaviour
             playerFuel.ResetValues();
         }
 
+        // activates shield for 5 seconds on pickup
         if (other.gameObject.CompareTag("Shieldpowerup"))
         {
             Destroy(other.gameObject);

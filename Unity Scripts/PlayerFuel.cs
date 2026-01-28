@@ -9,15 +9,13 @@ public class PlayerFuel : MonoBehaviour
     private float fuelConsumptionRate = 2.5f;
     public Slider fuelSlider;
     public TextMeshProUGUI fuelText;
-
-    bool isGameOver;
-
     private float countdown = 20f;
     private float timer;
     private float disIncRate;
     private DistanceCalculator distanceCalculator;
     private Player playerController;
     private float playerSpeed;
+    bool isGameOver;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -59,6 +57,7 @@ public class PlayerFuel : MonoBehaviour
             float speedFactor = timer / countdown;
 
 
+            // makes it so distance increase rate and player speed gradually decrease to 0 when fuel runs out
             if (timer > 0f)
             {
                 distanceCalculator.DistanceIncreaseRate = disIncRate * speedFactor;

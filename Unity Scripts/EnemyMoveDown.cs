@@ -7,7 +7,6 @@ public class EnemyMoveDown : MonoBehaviour
     private float yDestroyHigh = 15f;
     private float xDestroy = 13f;
     private float rotationSpeed;
-
     private Rigidbody2D rb;
 
     void Start()
@@ -17,6 +16,7 @@ public class EnemyMoveDown : MonoBehaviour
         speed = Random.Range(2, 5);
         rotationSpeed = Random.Range(-100, 100);
 
+        // velocity set in start function to make bouncy collisions work properly
         rb.angularVelocity = rotationSpeed;
         rb.linearVelocity = Vector2.down * speed;
     }

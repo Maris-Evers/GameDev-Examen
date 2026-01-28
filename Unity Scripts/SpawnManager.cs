@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
     private float spawnRangeX = 8f;
     private float spawnPosY = 7f;
 
-    private float obstacleDelay = 0.8f;
+    private float obstacleDelay = 0.7f;
     private float fuelDelay = 9f;
     private float startDelay = 2f;
     private float shieldDelay = 15f;
@@ -29,6 +29,7 @@ public class SpawnManager : MonoBehaviour
         int randomIndex = Random.Range(0, obstacles.Length);
         Vector3 spawnPos = new Vector3(Random.Range(-spawnRangeX, spawnRangeX), spawnPosY, 0);
 
+        // removes (Clone) from the name of the instantiated objects so that the deathmessage doesnt include it
         GameObject newTarget = Instantiate(obstacles[randomIndex], spawnPos, transform.rotation);
         newTarget.name = newTarget.name.Replace("(Clone)","").Trim();
     }
@@ -47,6 +48,7 @@ public class SpawnManager : MonoBehaviour
         Instantiate(shield, spawnPos, transform.rotation);
     }
 
+    // cancels all invokes on game reset/win, to prevent memory leaks
     public void OnResetOrWin()
     {
         CancelInvoke("SpawnRandomObstacle");

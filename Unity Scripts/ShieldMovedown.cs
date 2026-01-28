@@ -12,6 +12,7 @@ public class ShieldMovedown : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // like the fuel the shield isnt affected by bouncy collisions so movement is set in fixedupdate
     void FixedUpdate()
     {
         rb.linearVelocity = Vector2.down * speed;

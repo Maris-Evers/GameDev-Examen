@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Get input
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
 
@@ -23,7 +22,6 @@ public class Player : MonoBehaviour
         input.Normalize();
     }
 
-    // Fixed update called at fixed interval standard 50x per second
     private void FixedUpdate()
     {
         rb.linearVelocity = input * speed;

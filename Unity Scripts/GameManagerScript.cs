@@ -36,6 +36,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (!isGameOver)
         {
+            // disables other scripts to stop gameplay. on game over the obstacles dont get stopped, only on game win, since you can still see the obstacles in the game over screen unlike the winscreen
             GameObject.FindWithTag("Player").GetComponent<Player>().enabled = false;
             GameObject.FindWithTag("Player").GetComponent<PlayerFuel>().enabled = false;
             GameObject.Find("DistanceText").GetComponent<DistanceCalculator>().enabled = false;

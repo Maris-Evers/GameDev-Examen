@@ -10,6 +10,7 @@ public class FinishlineMoveDown : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // velocity for finishline in fixed update to ensure consistent movement
     void FixedUpdate()
     {
         rb.linearVelocity = Vector2.down * speed;

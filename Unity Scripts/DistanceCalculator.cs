@@ -3,15 +3,12 @@ using TMPro;
 
 public class DistanceCalculator : MonoBehaviour
 {
-    public float time;
     private float distance;
     private float totalDistance;
-    public TextMeshProUGUI distanceText;
-    public GameManagerScript gameManager;
     public float DistanceIncreaseRate = 5f;
+    public TextMeshProUGUI distanceText;
     public GameObject finishLine;
     private bool finishLineActive = false;
-    public GameObject spawnManager;
 
     // Update is called once per frame
     void Update()
@@ -21,6 +18,7 @@ public class DistanceCalculator : MonoBehaviour
         
         distanceText.text = "Distance: " + Mathf.Floor(totalDistance) + " LY";
 
+        // Spawns finishline and stops obstacles from spawning when nearing the reqiured distance
         if (totalDistance >= 490f && !finishLineActive)
         {
             GameObject.Find("SpawnManager").GetComponent<SpawnManager>().OnResetOrWin();

@@ -14,6 +14,7 @@ public class PlayerConstraints : MonoBehaviour
 
     void Update()
     {
+        // calculates the camera bounds
         float camHeight = mainCamera.orthographicSize;
         float camWidth = camHeight * mainCamera.aspect;
 
@@ -28,7 +29,7 @@ public class PlayerConstraints : MonoBehaviour
         Vector2 pos = rb.position;
         Vector2 velocity = rb.linearVelocity;
 
-        // X axis
+        // constrains player within bounds
         if (pos.x <= minX && velocity.x < 0f)
         {
             velocity.x = 0f;
@@ -40,7 +41,6 @@ public class PlayerConstraints : MonoBehaviour
             pos.x = maxX;
         }
 
-        // Y axis
         if (pos.y <= minY && velocity.y < 0f)
         {
             velocity.y = 0f;

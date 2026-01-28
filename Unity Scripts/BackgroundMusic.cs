@@ -6,6 +6,7 @@ public class BackgroundMusic : MonoBehaviour
 
     void Awake()
     {
+        // Makes it so that there is only one instance of BackgroundMusic across scenes and destroys duplicates
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
