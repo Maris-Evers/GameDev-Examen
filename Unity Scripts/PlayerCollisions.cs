@@ -7,6 +7,9 @@ public class PlayerCollisions : MonoBehaviour
     public GameManagerScript gameManager;
     public GameObject shield;
     public TextMeshProUGUI deathFlavorText;
+    public GameObject explosionParticle;
+    public AudioSource audioSource;
+    public AudioClip explosionSound;
 
     private void Update()
     {
@@ -20,6 +23,9 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle") && !shield.activeInHierarchy)
         {
+            audioSource.PlayOneShot(explosionSound, 1f);
+            Instantiate(explosionParticle, transform.position, transform.rotation);
+
             deathFlavorText.text = "You crashed into a " + other.gameObject.name + "!";
             Destroy(other.gameObject);
             Destroy(this.gameObject);
